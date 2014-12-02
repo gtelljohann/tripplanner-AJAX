@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="container">
+	<div class="row">
+
+    <!-- large 4, medium 12 -->
+    {% include '_daypicker.html' %}
+
+    <!-- large 8, medium 12 -->
+    {% include '_placepicker.html' %}   
+    
+  </div> <!-- top row -->
+</div> <!-- container -->
+
+<div class="container">
+  <div class="row">
+
+    <!-- 4 columns -->
+    {% include '_dayplan.html' %}
+
+    <!-- 8 columns -->
+    {% include '_map.html' %}
+
+
+
+  </div> <!-- bottom row -->
+</div> <!-- container -->
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+{% autoescape false %}
+var all_hotels = {{ hotels | json }};
+var all_restaurants = {{ restaurants | json }};
+var all_activities = {{ activities | json }};
+{% endautoescape %}
+
+</script>
+
+
+{% endblock %}
+

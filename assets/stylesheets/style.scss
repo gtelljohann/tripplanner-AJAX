@@ -1,0 +1,54 @@
+@import "normalize";
+
+body {
+	padding: 50px;
+	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+	color: #00B7FF;
+}
+
+form {
+	select.form-control {
+		max-width: 70%;
+		display: inline-block;
+	}
+	button {
+		max-width: 25%;
+		display:inline-block;
+	}
+}
+
+#map-canvas {
+	height: 500px;
+	margin: 30px 0;
+}
+
+.row {
+	.row {
+		margin: 0px -15px;
+	}
+}
+
+#day-buttons {
+	margin:30px 0;
+}
+
+#day-plan .list-group-item {
+	background-color:#EEEEEE;
+	ul li {
+		background-color:white;
+		span {
+			padding-right: 25px;
+			box-sizing: content-box;
+		}
+		button { 
+			float:right;
+		}
+	}
+}
+
+/*div {
+	border: solid 1px purple;
+}*/

@@ -1,0 +1,1 @@
+To use, you must run "npm install", "bower install jquery", and "bower install bootstrap"
