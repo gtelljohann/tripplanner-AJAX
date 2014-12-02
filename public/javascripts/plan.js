@@ -37,7 +37,7 @@ function addThing() {
 			title: hotel
 		});
 		plan[currentDay].Hotels.push({"name": hotel, "marker":marker});
-		
+		//$.get('/'+dayid+'/attractions', callback)
 		setDeleteButton("#hotel-list", "Hotels");
 
 	})
@@ -81,7 +81,32 @@ function setDeleteButton(listId, listName) {
 	});
 }
 
+function getDays() {
+
+	$.get('/days/', function(data) {
+		console.log(data.days);
+	});
+}
+
+// function writeVisitToServer(attraction_id, dayId, type_of_place) {
+//   var post_data = {
+//     attraction_id: attraction_id,
+//     attraction_type: type_of_place
+//   };
+ 
+//   // the callback function below will be called if this request completes successfully. 
+//   // the server's response to this request is passed into this callback function as "responseData"
+ 
+//   var post_callback = function (responseData) {
+//     //... what to do when done...
+//   };
+ 
+//   // jQuery Ajax call
+//   $.post( "/days/" + dayId + "/attractions", post_data, post_callback);
+// }
+
 
 $(document).ready(function() {
 	addThing();
+	getDays();
 });
