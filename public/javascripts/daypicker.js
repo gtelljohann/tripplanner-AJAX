@@ -22,6 +22,8 @@ var dayPicker = function() {
 
 	$("#add-day").click(function(){
 		addDay();
+		$.post("/days/");
+
 	});
 
 	$("#day-buttons button").click(daySwitcher);

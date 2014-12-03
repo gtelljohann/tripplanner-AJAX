@@ -46,6 +46,7 @@ router.get('/', function(req, res) {
 
 /* POST to add days and attractions */
 router.post('/', function(req, res) {
+	console.log("I want a new day");
 	models.Day.create({"day_number":next_day_num++});
 })
 
