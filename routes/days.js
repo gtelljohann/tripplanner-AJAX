@@ -10,15 +10,36 @@ router.get('/', function(req, res) {
 		next_day_num = days.length+1;
 		if(!days.length) {
 			models.Day.create({"day_number":next_day_num++}, function(err, newDay) {
-				res.json({
-					days:[newDay]
-				});
+				models.Hotel.find(function(err, hotels) {
+				models.Activity.find(function(err, activities) {
+					models.Restaurant.find(function(err, restaurants) {
+						res.json({
+							days:[newDay],
+							hotels:[],
+							activities:[],
+							restaurants:[]
+						});
+					})
+				})
+			})
 			});
 		} else {
+			models.Hotel.find(function(err, hotels) {
+				models.Activity.find(function(err, activities) {
+					models.Restaurant.find(function(err, restaurants) {
+						res.json({
+							days:days,
+							hotels:hotels,
+							activities:activities,
+							restaurants:restaurants
+						});
+					})
+				})
+			})
+
+
 			// We could use res.send, but we're not going to
-			res.json({
-				days:days
-			});
+			
 		}
 	});
 });

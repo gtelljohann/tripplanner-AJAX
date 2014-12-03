@@ -84,7 +84,7 @@ function setDeleteButton(listId, listName) {
 function getDays() {
 
 	$.get('/days/', function(data) {
-		console.log(data.days);
+		console.log(data);
 	});
 }
 
