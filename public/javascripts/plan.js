@@ -73,8 +73,6 @@ function addRestaurant(restaurant, restaurant_id) {
 function addThing() {
 
 
-
-
 	    $("#hotel-picker").submit(function(e) {
 	        var thisHotel = $("#hotel-picker option:selected").text();
 	        //Probably not worth getting rid of right now..
@@ -100,6 +98,7 @@ function addThing() {
 	        addRestaurant(thisRestaurant, thisRestaurant_id);
 	        writeVisitToServer(thisRestaurant_id, currentDay, "restaurant");        
 	    })
+
 
 }
 
@@ -135,19 +134,19 @@ function getDays() {
 }
 
 function writeVisitToServer(attraction_id, dayId, type_of_place) {
-  var post_data = {
-    attraction_id: attraction_id,
-    attraction_type: type_of_place
-  };
- 
+	var post_data = {
+		attraction_id: attraction_id,
+		attraction_type: type_of_place
+	};
+
   // the callback function below will be called if this request completes successfully. 
   // the server's response to this request is passed into this callback function as "responseData"
- 
+
   var post_callback = function (responseData) {
     //... what to do when done...
     alert("We added the thing!");
-  };
- 
+};
+
   // jQuery Ajax call
   $.post( "/days/" + dayId + "/attractions", post_data, post_callback);
 }
