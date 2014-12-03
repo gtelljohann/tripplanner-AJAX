@@ -1,7 +1,5 @@
 var currentDay = 1;
-
-var dayPicker = function() {
-	var dayNum = 1;
+var dayNum = 0;
 
 	var daySwitcher = function(){
 		var daynamesplit = $(this).text().split(" ");
@@ -12,12 +10,18 @@ var dayPicker = function() {
 		$(this).removeClass("btn-default").addClass("btn-primary");
 	}
 
-	$("#add-day").click(function(){
+	function addDay(){
 		dayNum++;
 		plan[dayNum] = {"Hotels":[], "Activities":[], "Restaurants":[]};
 		var newButton = '<button type="button" class="btn btn-primary">Day ' + dayNum + '</button>';
 		$("#day-buttons").append(newButton);
 		$("#day-buttons button:last-child").click(daySwitcher).trigger(jQuery.Event("click"));
+	}
+var dayPicker = function() {
+
+
+	$("#add-day").click(function(){
+		addDay();
 	});
 
 	$("#day-buttons button").click(daySwitcher);
