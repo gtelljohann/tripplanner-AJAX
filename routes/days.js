@@ -80,17 +80,5 @@ router.post('/:dayId/attractions', function(req,res){
 	};
 })
 
-// Option 2
-router.post('/:dayId/hotels/', function(req,res){
-
-})
-
-router.post('/:dayId/activities', function(req,res){
-
-})
-
-router.post('/:dayId/restaurants', function(req,res){
-
-})
 
 module.exports = router;
