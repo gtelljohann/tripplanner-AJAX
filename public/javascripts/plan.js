@@ -35,37 +35,37 @@ var deleteButton = "<button class='btn btn-warning btn-xs delete'>x</button>";
 
 function addHotel(hotel, hotel_id){
     var location = finder(hotel, all_hotels);
-    $("#hotel-list").append("<li _id="+hotel_id+" class='list-group-item'><span>" + hotel + "</span> " + deleteButton + "</li>");
+    $("#hotel-list").append("<li _id='"+hotel_id+"' class='list-group-item'><span>" + hotel + "</span> " + deleteButton + "</li>");
     var marker = new google.maps.Marker({
         position: new google.maps.LatLng(location[0], location[1]),
         map: map, 
         title: hotel
     });
-    plan[currentDay].Hotels.push({"name": hotel, "marker":marker});
+    plan[currentDay].Hotels.push({"name": hotel, "id":hotel_id, "marker":marker});
     setDeleteButton("#hotel-list", "Hotels");
 }
 
 function addActivity (activity, activity_id){
     var location = finder(activity, all_activities);
-    $("#activity-list").append("<li class='list-group-item'><span>" + activity + "</span> " + deleteButton + "</li>");
+    $("#activity-list").append("<li _id='"+activity_id+"' class='list-group-item'><span>" + activity + "</span> " + deleteButton + "</li>");
     var marker = new google.maps.Marker({
         position: new google.maps.LatLng(location[0], location[1]),
         map: map, 
         title: activity
     });
-    plan[currentDay].Activities.push({"name": activity, "marker":marker});
+    plan[currentDay].Activities.push({"name": activity, "id":activity_id, "marker":marker});
     setDeleteButton("#activity-list", "Activities");
 }
 
 function addRestaurant(restaurant, restaurant_id) {
     var location = finder(restaurant, all_restaurants);
-    $("#restaurant-list").append("<li class='list-group-item'><span>" + restaurant + "</span> " + deleteButton + "</li>");
+    $("#restaurant-list").append("<li _id='"+restaurant_id+"' class='list-group-item'><span>" + restaurant + "</span> " + deleteButton + "</li>");
     var marker = new google.maps.Marker({
         position: new google.maps.LatLng(location[0], location[1]),
         map: map, 
         title: restaurant
     });
-    plan[currentDay].Restaurants.push({"name": restaurant, "marker":marker});
+    plan[currentDay].Restaurants.push({"name": restaurant, "id":restaurant_id, "marker":marker});
     setDeleteButton("#restaurant-list", "Restaurants");
 }
 
@@ -110,8 +110,8 @@ function setDeleteButton(listId, listName) {
     findAndDelete(name, plan[currentDay][listName]);
     parent.remove();
     $.ajax({
-			url: '/'+currentDay+'/'+listName.toLowerCase()+'/'+itemId,
-      type: 'DELETE'
+			url: '/days/'+currentDay+'/'+listName.toLowerCase()+'/'+itemId,
+      type: 'DELETE', success:function() {}
 		});
 	});
 }
@@ -119,7 +119,6 @@ function setDeleteButton(listId, listName) {
 function getDays() {
 
 	$.get('/days/', function(data) {
-		console.log(data.days);
 		data.days.forEach(function(day){
 			addDay();
 			day.hotels.forEach(function(hotel){

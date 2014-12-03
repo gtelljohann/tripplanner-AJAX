@@ -44,17 +44,17 @@ function setDay() {
 
 	$("#plan-daynum").text("Day " + currentDay);
 	$.each(plan[currentDay].Hotels, function(key, hotel){
-		$("#hotel-list").append("<li _id="+hotel._id+" class='list-group-item'><span>" + hotel.name + "</span> " + deleteButton + "</li>");
+		$("#hotel-list").append("<li _id='"+hotel.id+"' class='list-group-item'><span>" + hotel.name + "</span> " + deleteButton + "</li>");
 	});	
 	setDeleteButton("#hotel-list", "Hotels");
 
 	$.each(plan[currentDay].Activities, function(key, activity){
-		$("#activity-list").append("<li class='list-group-item'><span>" + activity.name + "</span> " + deleteButton + "</li>");
+		$("#activity-list").append("<li _id='"+activity.id+"' class='list-group-item'><span>" + activity.name + "</span> " + deleteButton + "</li>");
 	});
 	setDeleteButton("#activity-list", "Activities");
 
 	$.each(plan[currentDay].Restaurants, function(key, restaurant){
-		$("#restaurant-list").append("<li class='list-group-item'><span>" + restaurant.name + "</span> " + deleteButton + "</li>");
+		$("#restaurant-list").append("<li _id='"+restaurant.id+"' class='list-group-item'><span>" + restaurant.name + "</span> " + deleteButton + "</li>");
 	});
 	setDeleteButton("#restaurant-list", "Restaurants");
 

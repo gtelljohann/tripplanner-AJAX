@@ -5,7 +5,7 @@ var next_day_num;
 
 /* GET days listing. */
 router.get('/', function(req, res) {
-	models.Day.find().populate("hotels activities restaurants").exec(function(err, days) {
+	models.Day.find().populate("hotels activities restaurants").sort('day_number').exec(function(err, days) {
 		if (err) res.status(500);
 		next_day_num = days.length+1;
 		if(!days.length) {
@@ -63,16 +63,16 @@ router.post('/:dayId/attractions', function(req,res){
 
 
 router.delete('/:dayId/:attraction_type/:attraction_id', function(req, res){
-	models.Day.findOne({day_number: dayId}, function(err, day){
-		var attractionType = function(){
-			if (req.params.attraction_type === "hotel") return "hotels";
-			if (req.params.attraction_type === "activity") return "activities";
-			else return restaurants;
-		}
-    var attractionId = req.params.attraction_id;
-		day[attractionType()].pull(attractionId)
-	})
-})
+	console.log(req.params);
+	models.Day.findOne({day_number: req.params.dayId}, function(err, day){
+		var attractionId = req.params.attraction_id;
+		// console.log(day);
+		day[req.params.attraction_type].pull(attractionId);
+		// console.log(day);
+		day.save();
+	});
+	res.send('success!');
+});
 
 
 module.exports = router;
