@@ -129,6 +129,7 @@ function getDays() {
 				addRestaurant(restaurantObj.name, restaurantObj._id);
 			});	
 		});
+		$("#day-buttons").children().first().click();
 	});
 }
 
@@ -143,7 +144,7 @@ function writeVisitToServer(attraction_id, dayId, type_of_place) {
 
   var post_callback = function (responseData) {
     //... what to do when done...
-    alert("We added the thing!");
+    // alert("We added the thing!");
 };
 
   // jQuery Ajax call
