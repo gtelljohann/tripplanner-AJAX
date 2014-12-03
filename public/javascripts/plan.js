@@ -12,7 +12,6 @@ function finder(name, array) {
 }
 
 function findById(id, array) {
-	debugger;
 	var obj;
 	id = id.replace(/"/g, '');
 	array.forEach(function(el){
