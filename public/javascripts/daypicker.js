@@ -44,7 +44,7 @@ function setDay() {
 
 	$("#plan-daynum").text("Day " + currentDay);
 	$.each(plan[currentDay].Hotels, function(key, hotel){
-		$("#hotel-list").append("<li class='list-group-item'><span>" + hotel.name + "</span> " + deleteButton + "</li>");
+		$("#hotel-list").append("<li _id="+hotel._id+" class='list-group-item'><span>" + hotel.name + "</span> " + deleteButton + "</li>");
 	});	
 	setDeleteButton("#hotel-list", "Hotels");
 

@@ -11,16 +11,16 @@ function finder(name, array) {
 	return obj.place[0].location;
 }
 
-function findById(id, array) {
-	var obj;
-	id = id.replace(/"/g, '');
-	array.forEach(function(el){
-		if (el._id == id) {
-			obj = el;
-		}
-	});
-	return obj;
-}
+// function findById(id, array) {
+// 	var obj;
+// 	id = id.replace(/"/g, '');
+// 	array.forEach(function(el){
+// 		if (el._id == id) {
+// 			obj = el;
+// 		}
+// 	});
+// 	return obj;
+// }
 
 function findAndDelete(name, array) {
 	var obj;
@@ -35,7 +35,7 @@ var deleteButton = "<button class='btn btn-warning btn-xs delete'>x</button>";
 
 function addHotel(hotel, hotel_id){
     var location = finder(hotel, all_hotels);
-    $("#hotel-list").append("<li class='list-group-item'><span>" + hotel + "</span> " + deleteButton + "</li>");
+    $("#hotel-list").append("<li _id="+hotel_id+" class='list-group-item'><span>" + hotel + "</span> " + deleteButton + "</li>");
     var marker = new google.maps.Marker({
         position: new google.maps.LatLng(location[0], location[1]),
         map: map, 
@@ -102,31 +102,34 @@ function addThing() {
 }
 
 function setDeleteButton(listId, listName) {
-	$(listId + " .delete").click(function() {
-		var parent = $(this).parent();
-		var name = parent.find("span").text();
-		findAndDelete(name, plan[currentDay][listName]);
-		parent.remove();
+  $(listId + " .delete").click(function() {
+    var parent = $(this).parent();
+    var itemId = parent.attr("_id");
+    console.log(itemId);
+    var name = parent.find("span").text();
+    findAndDelete(name, plan[currentDay][listName]);
+    parent.remove();
+    $.ajax({
+			url: '/'+currentDay+'/'+listName.toLowerCase()+'/'+itemId,
+      type: 'DELETE'
+		});
 	});
 }
 
 function getDays() {
 
 	$.get('/days/', function(data) {
+		console.log(data.days);
 		data.days.forEach(function(day){
 			addDay();
 			day.hotels.forEach(function(hotel){
-				var hotelObj = findById(hotel, data.hotels);
-				console.log(hotel);
-				addHotel(hotelObj.name, hotelObj._id);
+				addHotel(hotel.name, hotel._id);
 			});				
 			day.activities.forEach(function(activity){
-				var activityObj = findById(activity, data.activities);
-				addActivity(activityObj.name, activityObj._id);
+				addActivity(activity.name, activity._id);
 			});				
 			day.restaurants.forEach(function(restaurant){
-				var restaurantObj = findById(restaurant, data.restaurants);
-				addRestaurant(restaurantObj.name, restaurantObj._id);
+				addRestaurant(restaurant.name, restaurant._id);
 			});	
 		});
 		$("#day-buttons").children().first().click();
