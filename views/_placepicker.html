@@ -6,7 +6,7 @@
       <form class="form-inline" id="hotel-picker">
        <select class="form-control">
           {% for hotel in hotels %} 
-            <option>{{ hotel.name }}</option>
+            <option id={{ hotel._id | json }}>{{ hotel.name }}</option>
           {% endfor %}
        </select>
        <button type="submit" class="btn btn-primary">Add</button>

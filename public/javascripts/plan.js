@@ -26,10 +26,8 @@ function addThing() {
 
 	var deleteButton = "<button class='btn btn-warning btn-xs delete'>x</button>";
 
-	$("#hotel-picker").submit(function(e) {
-		var hotel = $("#hotel-picker option:selected").text();
+	function addHotel(hotel, hotel_id){
 		var location = finder(hotel, all_hotels);
-		e.preventDefault();
 		$("#hotel-list").append("<li class='list-group-item'><span>" + hotel + "</span> " + deleteButton + "</li>");
 		var marker = new google.maps.Marker({
 			position: new google.maps.LatLng(location[0], location[1]),
@@ -37,10 +35,17 @@ function addThing() {
 			title: hotel
 		});
 		plan[currentDay].Hotels.push({"name": hotel, "marker":marker});
-		//$.get('/'+dayid+'/attractions', callback)
 		setDeleteButton("#hotel-list", "Hotels");
+	}
 
-	})
+	$("#hotel-picker").submit(function(e) {
+		var thisHotel = $("#hotel-picker option:selected").text();
+		//Probably not worth getting rid of right now..
+		var thisHotel_id = $("#hotel-picker option:selected").attr("id").replace(/"/g, '');
+		e.preventDefault();
+		addHotel(thisHotel, thisHotel_id);
+		writeVisitToServer(thisHotel_id, currentDay, "hotel");
+	});
 
 	$("#activity-picker").submit(function(e) {
 		var activity = $("#activity-picker option:selected").text();
@@ -84,26 +89,29 @@ function setDeleteButton(listId, listName) {
 function getDays() {
 
 	$.get('/days/', function(data) {
-		console.log(data.days);
+		data.days.forEach(function(day){
+			day.hotels.forEach	
+		});
 	});
 }
 
-// function writeVisitToServer(attraction_id, dayId, type_of_place) {
-//   var post_data = {
-//     attraction_id: attraction_id,
-//     attraction_type: type_of_place
-//   };
+function writeVisitToServer(attraction_id, dayId, type_of_place) {
+  var post_data = {
+    attraction_id: attraction_id,
+    attraction_type: type_of_place
+  };
  
-//   // the callback function below will be called if this request completes successfully. 
-//   // the server's response to this request is passed into this callback function as "responseData"
+  // the callback function below will be called if this request completes successfully. 
+  // the server's response to this request is passed into this callback function as "responseData"
  
-//   var post_callback = function (responseData) {
-//     //... what to do when done...
-//   };
+  var post_callback = function (responseData) {
+    //... what to do when done...
+    alert("We added the thing!");
+  };
  
-//   // jQuery Ajax call
-//   $.post( "/days/" + dayId + "/attractions", post_data, post_callback);
-// }
+  // jQuery Ajax call
+  $.post( "/days/" + dayId + "/attractions", post_data, post_callback);
+}
 
 
 $(document).ready(function() {

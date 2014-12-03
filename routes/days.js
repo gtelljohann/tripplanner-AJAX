@@ -30,7 +30,33 @@ router.post('/', function(req, res) {
 
 // Option 1
 router.post('/:dayId/attractions', function(req,res){
-
+	if(req.body.attraction_type === "hotel") {
+		//FIND STUFF, such as the day
+		models.Day.findOne({day_number: req.params.dayId}, function(err, day) {
+			day.hotels.push(req.body.attraction_id);
+			day.save(function(err, day){
+				res.send('You added a hotel.');
+			});
+		});
+	};
+	if(req.body.attraction_type === "activity") {
+		//FIND STUFF, such as the day
+		models.Day.findOne({day_number: req.params.dayId}, function(err, day) {
+			day.hotels.push(req.body.attraction_id);
+			day.save(function(err, day){
+				res.send('You added an activity.');
+			});
+		});
+	};
+	if(req.body.attraction_type === "restaurant") {
+		//FIND STUFF, such as the day
+		models.Day.findOne({day_number: req.params.dayId}, function(err, day) {
+			day.hotels.push(req.body.attraction_id);
+			day.save(function(err, day){
+				res.send('You added a restaurant.');
+			});
+		});
+	};
 })
 
 // Option 2
